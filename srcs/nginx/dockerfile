@@ -28,4 +28,4 @@ COPY ./index.html /www
 
 EXPOSE 80 443
 
-CMD ["bash", "/utils/launch.sh"]
+ENTRYPOINT ["bash", "/utils/launch.sh"]

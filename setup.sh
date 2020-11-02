@@ -40,11 +40,15 @@ install_metallb()
 deploy_docker()
 {
 	docker build -t nginx ./srcs/nginx;
+	docker build -t mysql ./srcs/mysql
+	docker build -t phpmyadmin ./srcs/phpmyadmin
 }
 
 deploy_yaml()
 {
 	kubectl apply -f ./srcs/nginx/nginx.yaml > /dev/null
+	kubectl apply -f ./srcs/mysql/mysql.yaml > /dev/null
+	kubectl apply -f ./srcs/phpmyadmin/phpmyadmin.yaml > /dev/null
 }
 
 launch_minikube()
