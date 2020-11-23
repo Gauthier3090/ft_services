@@ -12,8 +12,7 @@ COPY launch.sh /utils
 COPY my.cnf /etc/mysql/my.cnf
 COPY init.sql /utils
 COPY create_tables.sql /utils
-
-RUN chmod 777 /utils/launch.sh
+COPY wordpress.sql /utils
 
 VOLUME ["/var/lib"]
 

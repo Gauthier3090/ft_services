@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
+
+RUN mkdir /utils
+COPY ./launch.sh /utils/launch.sh
+COPY ./influxdb.yaml /usr/share/grafana/conf/provisioning/datasources/
+COPY ./dashboards.yaml /usr/share/grafana/conf/provisioning/dashboards/
+COPY ./dashboards/*.json /var/lib/grafana/
+
+EXPOSE 3000
+
+ENTRYPOINT ["bash", "utils/launch.sh"]

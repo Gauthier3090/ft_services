@@ -1,0 +1,21 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add vsftpd
+RUN apk add openssl
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+	-subj "/C=BE/ST=Brussels/L=Brussels/O=19/CN=gpladet" \
+    -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
+
+RUN touch /etc/vsftpd.chroot_list && echo 'root:root' | chpasswd
+RUN mkdir /utils
+
+COPY ./vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY ./launch.sh /utils/launch.sh
+
+EXPOSE 21 21000-21002
+
+ENTRYPOINT ["bash", "utils/launch.sh"]

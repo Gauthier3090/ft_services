@@ -6,7 +6,6 @@ RUN apk update
 RUN apk upgrade
 RUN apk add nginx
 RUN apk add openssl
-RUN apk add supervisor
 RUN apk add bash
 
 RUN mkdir -p /etc/nginx/ssl
@@ -23,7 +22,6 @@ RUN chown -R root:root /www
 
 COPY ./nginx.conf /etc/nginx
 COPY ./launch.sh /utils
-COPY ./supervisord.conf /etc/supervisord.conf
 COPY ./index.html /www
 
 EXPOSE 80 443

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  replicas: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      name: telegraf
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - name: telegraf
+          image: telegraf
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8125
+          volumeMounts:
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf
+  labels:
+    app: telegraf
+  annotations:
+    metallb.universe.tf/allow-shared-ip: sharing key
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.100
+  ports:
+    - port: 8125
+      protocol: UDP
+      targetPort: 8125
+  selector:
+    app: telegraf

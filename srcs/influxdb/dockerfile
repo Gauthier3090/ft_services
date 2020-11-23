@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk upgrade
+RUN apk add influxdb
+RUN apk add bash
+
+RUN mkdir /utils
+
+COPY ./launch.sh /utils
+
+VOLUME ["/var/lib"]
+
+EXPOSE 8086
+
+ENTRYPOINT ["bash", "/utils/launch.sh"]
