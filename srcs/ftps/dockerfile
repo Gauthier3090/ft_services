@@ -16,6 +16,6 @@ RUN mkdir /utils
 COPY ./vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY ./launch.sh /utils/launch.sh
 
-EXPOSE 21 21000-21002
+EXPOSE 21 21000-21005
 
 ENTRYPOINT ["bash", "utils/launch.sh"]
