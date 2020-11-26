@@ -28,6 +28,7 @@ RUN rm latest.zip
 COPY ./nginx.conf /etc/nginx
 COPY ./wp-config.php /www/wordpress/wp-config.php
 COPY ./launch.sh /utils
+COPY ./probe.sh /utils
 
 EXPOSE 5050
 

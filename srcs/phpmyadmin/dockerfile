@@ -30,6 +30,7 @@ RUN mv phpmyadmin /www
 COPY ./nginx.conf /etc/nginx
 COPY ./config.inc.php /www/phpmyadmin/config.inc.php
 COPY ./launch.sh /utils
+COPY ./probe.sh /utils
 
 EXPOSE 5000
 
